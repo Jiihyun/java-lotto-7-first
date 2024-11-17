@@ -23,6 +23,6 @@ public class IntegerParser {
     }
 
     private static boolean isNotNumber(String input) {
-        return REGEX.matcher(input).find();
+        return !REGEX.matcher(input).find();
     }
 }
