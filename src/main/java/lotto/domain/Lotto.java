@@ -48,4 +48,8 @@ public class Lotto {
                 .map(LottoNumber::getNumber)
                 .toList();
     }
+
+    public boolean hasBonusNumber(LottoNumber number) {
+        return numbers.contains(number);
+    }
 }
