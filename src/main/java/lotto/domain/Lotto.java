@@ -37,8 +37,15 @@ public class Lotto {
 
     private List<LottoNumber> convertToLottoNumber(List<Integer> numbers) {
         return numbers.stream()
-                .map(LottoNumber::new)
                 .sorted()
+                .map(LottoNumber::new)
+                .toList();
+    }
+
+    //TODO: 출력타입 고치기
+    public List<Integer> getNumbers() {
+        return numbers.stream()
+                .map(LottoNumber::getNumber)
                 .toList();
     }
 }

@@ -18,4 +18,8 @@ public class LottoNumber {
             throw new IllegalArgumentException(LOTTO_NUMBER_OUT_OF_RANGE.getMessage());
         }
     }
+
+    public int getNumber() {
+        return number;
+    }
 }
