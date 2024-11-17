@@ -12,10 +12,10 @@ import static lotto.exception.ExceptionMessage.INVALID_WINNING_NUMBER_FORMAT;
 
 public class InputView {
 
-    private static final Pattern WINNING_NUMBERS_FORMAT = Pattern.compile("\\d,\\d,\\d,\\d,\\d,\\d");
+    private static final Pattern WINNING_NUMBER_FORMAT = Pattern.compile("\\d,\\d,\\d,\\d,\\d,\\d");
     public static final String NEW_LINE = System.lineSeparator();
     private static final String INPUT_MONEY_MSG = "구입금액을 입력해 주세요.";
-    private static final String INPUT_WINNING_NUMBERS_MSG = NEW_LINE + "당첨 번호를 입력해 주세요.";
+    private static final String INPUT_WINNING_NUMBER_MSG = NEW_LINE + "당첨 번호를 입력해 주세요.";
     private static final String INPUT_BONUS_NUMBER_MSG = NEW_LINE + "보너스 번호를 입력해 주세요.";
 
     public int readMoney() {
@@ -23,9 +23,9 @@ public class InputView {
         return IntegerParser.convertToInt(input);
     }
 
-    public List<Integer> readWinningNumbers() {
-        String input = getValidatedInput(INPUT_WINNING_NUMBERS_MSG);
-        validateWinningNumbersFormat(input);
+    public List<Integer> readWinningNumber() {
+        String input = getValidatedInput(INPUT_WINNING_NUMBER_MSG);
+        validateWinningNumberFormat(input);
 
         return StringSplitter.splitByDelimiter(input)
                 .stream()
@@ -51,8 +51,8 @@ public class InputView {
         }
     }
 
-    private void validateWinningNumbersFormat(String input) {
-        if (!WINNING_NUMBERS_FORMAT.matcher(input).find()) {
+    private void validateWinningNumberFormat(String input) {
+        if (!WINNING_NUMBER_FORMAT.matcher(input).find()) {
             throw new IllegalArgumentException(INVALID_WINNING_NUMBER_FORMAT.getMessage());
         }
     }
