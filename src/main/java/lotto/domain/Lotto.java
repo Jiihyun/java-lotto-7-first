@@ -17,6 +17,23 @@ public class Lotto {
         this.numbers = convertToLottoNumber(numbers);
     }
 
+    public int calculateMatchingCount(Lotto other) {
+        return (int) numbers.stream()
+                .filter(other.numbers::contains)
+                .count();
+    }
+
+    public boolean hasBonusNumber(LottoNumber number) {
+        return numbers.contains(number);
+    }
+
+    //TODO: 출력타입 고치기
+    public List<Integer> getNumbers() {
+        return numbers.stream()
+                .map(LottoNumber::getNumber)
+                .toList();
+    }
+
     private void validateLottoSize(List<Integer> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(WRONG_LOTTO_SIZE.getMessage());
@@ -40,16 +57,5 @@ public class Lotto {
                 .sorted()
                 .map(LottoNumber::new)
                 .toList();
-    }
-
-    //TODO: 출력타입 고치기
-    public List<Integer> getNumbers() {
-        return numbers.stream()
-                .map(LottoNumber::getNumber)
-                .toList();
-    }
-
-    public boolean hasBonusNumber(LottoNumber number) {
-        return numbers.contains(number);
     }
 }

@@ -16,6 +16,7 @@ public class IntegerParser {
         return Integer.parseInt(input);
     }
 
+    //todo int 범위 넘었을시
     private static void validateNumber(String input) {
         if (isNotNumber(input)) {
             throw new IllegalArgumentException(INVALID_NUMBER.getMessage());

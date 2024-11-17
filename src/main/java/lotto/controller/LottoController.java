@@ -1,10 +1,12 @@
 package lotto.controller;
 
 import lotto.domain.Lottos;
+import lotto.dto.response.DrawResultResponse;
 import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class LottoController {
@@ -20,11 +22,22 @@ public class LottoController {
     }
 
     public void run() {
+        Lottos lottos = retryOnInvalidInput(this::purchaseLotto);
+        draw(lottos);
+    }
+
+    private Lottos purchaseLotto() {
         int money = inputView.readMoney();
         Lottos lottos = lottoService.purchaseLotto(money);
         outputView.printPurchasedLottos(lottos);
+        return lottos;
+    }
 
-
+    private void draw(Lottos lottos) {
+        List<Integer> winningNumber = retryOnInvalidInput(inputView::readWinningNumber);
+        int bonusNumber = retryOnInvalidInput(inputView::readBonusNumber);
+        DrawResultResponse drawResultResponse = lottoService.draw(winningNumber, bonusNumber, lottos);
+        outputView.printDrawResult(drawResultResponse);
     }
 
     private <T> T retryOnInvalidInput(Supplier<T> input) {

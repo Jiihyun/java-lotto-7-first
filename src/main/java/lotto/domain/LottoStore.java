@@ -1,7 +1,9 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import static lotto.exception.ExceptionMessage.AMOUNT_OUT_OF_RANGE;
 import static lotto.exception.ExceptionMessage.WRONG_PURCHASE_UNIT;
@@ -27,6 +29,19 @@ public class LottoStore {
 
     }
 
+    public Map<Ranking, Integer> draw(WinningNumbers winningNumbers, Lottos lottos) {
+        Map<Ranking, Integer> statistics = initStatistics();
+
+        lottos.getLottos()
+                .forEach(lotto -> {
+                    int matchingCount = lotto.calculateMatchingCount(winningNumbers.getWinningNumber());
+                    boolean hasBonusNumber = lotto.hasBonusNumber(winningNumbers.getBonusNumber());
+                    Ranking rank = Ranking.drawResult(matchingCount, hasBonusNumber);
+                    statistics.put(rank, statistics.get(rank) + 1);
+                });
+        return statistics;
+    }
+
     private int calculatePurchasedLottoQuantity(int money) {
         validateAmountRange(money);
         validatePurchaseUnit(money);
@@ -43,5 +58,13 @@ public class LottoStore {
         if (money < PURCHASE_UNIT || money > MAX_AMOUNT) {
             throw new IllegalArgumentException(AMOUNT_OUT_OF_RANGE.getMessage());
         }
+    }
+
+    private Map<Ranking, Integer> initStatistics() {
+        Map<Ranking, Integer> statistics = new EnumMap<>(Ranking.class);
+        for (Ranking rank : Ranking.values()) {
+            statistics.put(rank, 0);
+        }
+        return statistics;
     }
 }

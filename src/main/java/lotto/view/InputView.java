@@ -25,7 +25,7 @@ public class InputView {
 
     public List<Integer> readWinningNumber() {
         String input = getValidatedInput(INPUT_WINNING_NUMBER_MSG);
-        validateWinningNumberFormat(input);
+//        validateWinningNumberFormat(input);
 
         return StringSplitter.splitByDelimiter(input)
                 .stream()
