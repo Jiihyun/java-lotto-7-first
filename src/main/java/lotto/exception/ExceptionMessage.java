@@ -15,6 +15,8 @@ public enum ExceptionMessage {
 
     DUPLICATED_LOTTO_NUMBERS("중복된 로또 번호들이 존재합니다"),
 
+    INVALID_WINNING_NUMBER_FORMAT("유효하지 않은 당첨번호 형식입니다."),
+
     WRONG_PURCHASE_UNIT(
             format("%d원 단위로 구매 가능합니다.", PURCHASE_UNIT)
     ),
